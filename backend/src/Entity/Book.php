@@ -38,12 +38,12 @@ class Book
      * @var Collection<int, Genre>
      */
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'books')]
-    private Collection $genre;
+    private Collection $genres;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->genre = new ArrayCollection();
+        $this->genres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -119,15 +119,15 @@ class Book
     /**
      * @return Collection<int, Genre>
      */
-    public function getGenre(): Collection
+    public function getGenres(): Collection
     {
-        return $this->genre;
+        return $this->genres;
     }
 
     public function addGenre(Genre $genre): static
     {
-        if (!$this->genre->contains($genre)) {
-            $this->genre->add($genre);
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
         }
 
         return $this;
@@ -135,7 +135,7 @@ class Book
 
     public function removeGenre(Genre $genre): static
     {
-        $this->genre->removeElement($genre);
+        $this->genres->removeElement($genre);
 
         return $this;
     }
