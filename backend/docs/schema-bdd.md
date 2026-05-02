@@ -7,7 +7,7 @@ erDiagram
         string username
         string email UK
         string password
-        datetime creation_date
+        datetime created_at
         boolean active
     }
 
@@ -16,7 +16,7 @@ erDiagram
         int user_id FK
         string title
         string description
-        datetime dateCreation
+        datetime created_at
     }
 
     BOOK {
