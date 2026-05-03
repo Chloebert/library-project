@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
-#[ORM\UniqueConstraint(name: 'uniq_user_email', columns: ['email'])]
 class User
 {
     #[ORM\Id]
@@ -20,11 +19,11 @@ class User
     #[ORM\Column(length: 255)]
     private string $username = '';
 
-    #[ORM\Column(length: 255, unique: true)]
-    private string $email = '';
+    #[ORM\Column(length: 255, nullable: true, unique: true)]
+    private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private string $password = '';
+    #[ORM\Column(length: 255, unique: true)]
+    private string $keycloakId = '';
 
     #[ORM\Column(type: 'datetime_immutable', name: 'created_at')]
     private \DateTimeImmutable $createdAt;
@@ -68,26 +67,26 @@ class User
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getPassword(): string
+    public function getKeycloakId(): string
     {
-        return $this->password;
+        return $this->keycloakId;
     }
 
-    public function setPassword(string $password): static
+    public function setKeycloakId(string $keycloakId): static
     {
-        $this->password = $password;
+        $this->keycloakId = $keycloakId;
 
         return $this;
     }

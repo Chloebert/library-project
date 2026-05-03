@@ -2,20 +2,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\GenreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['genre:read']],
+    denormalizationContext: ['groups' => ['genre:write']]
+)]
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
 class Genre
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['genre:read', 'book:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['genre:read', 'genre:write', 'book:read', 'book:write'])]
     private ?string $name = null;
 
     /**
